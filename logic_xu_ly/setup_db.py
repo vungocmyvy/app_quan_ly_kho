@@ -44,7 +44,18 @@ def setup():
             status TEXT
         )
     ''')
-    
+    #Invoices
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS invoices (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            invoice_no TEXT NOT NULL,
+            customer_name TEXT NOT NULL,
+            date TEXT,
+            due_date TEXT,
+            amount REAL,
+            status TEXT DEFAULT 'pending' -- paid, pending, overdue, draft
+        )
+    ''')
     conn.commit()
     conn.close()
     print("Đã tạo bảng 'suppliers' 'customers' 'products' thành công!")
