@@ -25,3 +25,14 @@ def fetch_all_suppliers():
     
     conn.close()
     return rows
+
+# Lọc danh sách nhà cung cấp khi gõ tên loại hàng ở thanh tìm kiếm
+def search_suppliers(keyword):
+    conn = get_connection()
+    cursor = conn.cursor()
+    # Tìm kiếm theo tên hoặc loại hàng
+    query = "SELECT * FROM suppliers WHERE name LIKE ? OR category LIKE ?"
+    cursor.execute(query, (f'%{keyword}%', f'%{keyword}%'))
+    rows = cursor.fetchall()
+    conn.close()
+    return rows

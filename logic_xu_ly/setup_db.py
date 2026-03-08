@@ -1,12 +1,10 @@
 import sqlite3
 
-#Khởi tạo cấu trúc bảng
 def setup():
     conn = sqlite3.connect('logic_xu_ly/inventory.db')
     cursor = conn.cursor()
     
-    # Lệnh này sẽ tạo bảng nếu nó chưa tồn tại
-    # Supplier
+    # 1. Bảng Suppliers
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS suppliers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,7 +17,7 @@ def setup():
         )
     ''')
 
-    # Customers
+    # 2. Bảng Customers 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS customers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +30,7 @@ def setup():
         )
     ''')
     
-    # Products 
+    # 3. Bảng Products 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS products (
             sku TEXT PRIMARY KEY,
@@ -44,21 +42,33 @@ def setup():
             status TEXT
         )
     ''')
-    #Invoices
+
+    # 4. Bảng Invoices 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS invoices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            invoice_no TEXT NOT NULL,
-            customer_name TEXT NOT NULL,
+            customer_name TEXT,
             date TEXT,
-            due_date TEXT,
-            amount REAL,
-            status TEXT DEFAULT 'pending' -- paid, pending, overdue, draft
+            total_amount REAL,
+            status TEXT
         )
     ''')
+
+    # 5. Bảng Users cho Đăng nhập 
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            username TEXT PRIMARY KEY,
+            password TEXT NOT NULL,
+            role TEXT
+        )
+    ''')
+    
+    # Tạo tài khoản admin mặc định
+    cursor.execute("INSERT OR IGNORE INTO users VALUES ('admin', 'admin123', 'Administrator')")
+    
     conn.commit()
     conn.close()
-    print("Đã tạo bảng 'suppliers' 'customers' 'products' thành công!")
+    print("Đã khởi tạo đầy đủ 5 bảng: Suppliers, Customers, Products, Invoices, Users!")
 
 if __name__ == "__main__":
     setup()
