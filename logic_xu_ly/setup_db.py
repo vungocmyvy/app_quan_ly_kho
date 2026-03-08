@@ -42,33 +42,44 @@ def setup():
             status TEXT
         )
     ''')
-
-    # 4. Bảng Invoices 
+    #Invoices
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS invoices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            customer_name TEXT,
+            invoice_no TEXT NOT NULL,
+            customer_name TEXT NOT NULL,
             date TEXT,
-            total_amount REAL,
-            status TEXT
+            due_date TEXT,
+            amount REAL,
+            status TEXT DEFAULT 'pending' -- paid, pending, overdue, draft
         )
     ''')
 
-    # 5. Bảng Users cho Đăng nhập 
+    # Invoices
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            username TEXT PRIMARY KEY,
-            password TEXT NOT NULL,
-            role TEXT
-        )
+    CREATE TABLE IF NOT EXISTS invoices (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        customer_name TEXT,
+        date TEXT,
+        total_amount REAL,
+        status TEXT
+    )
     ''')
-    
-    # Tạo tài khoản admin mặc định
+
+    #login
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        username TEXT PRIMARY KEY,
+        password TEXT NOT NULL,
+        role TEXT
+    )
+    ''')
+    # Thêm một tài khoản mặc định để đăng nhập
     cursor.execute("INSERT OR IGNORE INTO users VALUES ('admin', 'admin123', 'Administrator')")
     
     conn.commit()
     conn.close()
-    print("Đã khởi tạo đầy đủ 5 bảng: Suppliers, Customers, Products, Invoices, Users!")
+    print("Đã tạo bảng 'suppliers' 'customers' 'products' 'invoices' thành công!")
 
 if __name__ == "__main__":
     setup()
