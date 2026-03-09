@@ -22,11 +22,11 @@ def fetch_all_products():
     return data
 
 # Lọc danh sách tìm sản phẩm theo sku/ tên sản phẩm ở thanh tìm kiếm
-def search_suppliers(keyword):
+def search_products(keyword):
     conn = get_connection()
     cursor = conn.cursor()
     # Tìm kiếm theo tên hoặc loại hàng
-    query = "SELECT * FROM suppliers WHERE name LIKE ? OR category LIKE ?"
+    query = "SELECT * FROM products WHERE name LIKE ? OR sku LIKE ?"
     cursor.execute(query, (f'%{keyword}%', f'%{keyword}%'))
     rows = cursor.fetchall()
     conn.close()
