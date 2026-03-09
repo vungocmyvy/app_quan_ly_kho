@@ -22,11 +22,11 @@ def fetch_all_customers():
     return data
 
 # Lọc danh sách tìm khách hàng theo tên/mail ở thanh tìm kiếm
-def search_suppliers(keyword):
+def search_customers(keyword):
     conn = get_connection()
     cursor = conn.cursor()
     # Tìm kiếm theo tên hoặc loại hàng
-    query = "SELECT * FROM suppliers WHERE name LIKE ? OR category LIKE ?"
+    query = "SELECT * FROM customers WHERE name LIKE ? OR email LIKE ?"
     cursor.execute(query, (f'%{keyword}%', f'%{keyword}%'))
     rows = cursor.fetchall()
     conn.close()
