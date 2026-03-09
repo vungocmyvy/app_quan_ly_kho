@@ -30,7 +30,7 @@ def get_dashboard_stats():
 
 def get_category_distribution():
     """Lấy dữ liệu cho biểu đồ tròn (Pie Chart)"""
-    conn = sqlite3.connect('inventory.db')
+    conn = sqlite3.connect('logic_xu_ly/inventory.db')
     cursor = conn.cursor()
     # Đếm số lượng sản phẩm theo từng loại (Electronics, Office Supplies...)
     cursor.execute("SELECT category, COUNT(*) FROM products GROUP BY category")
