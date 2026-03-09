@@ -33,6 +33,7 @@ def setup():
     # 3. Bảng Products 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS products (
+            min_threshold INTEGER DEFAULT 10,
             sku TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             category TEXT,
