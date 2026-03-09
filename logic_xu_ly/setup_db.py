@@ -56,16 +56,6 @@ def setup():
         )
     ''')
 
-    # Invoices
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS invoices (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        customer_name TEXT,
-        date TEXT,
-        total_amount REAL,
-        status TEXT
-    )
-    ''')
 
     #login
     cursor.execute('''
